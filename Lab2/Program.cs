@@ -281,7 +281,7 @@ public class Program
         {
             double x = double.Parse(Console.ReadLine());
             double y = double.Parse(Console.ReadLine());
-            if (x * x + y * y <= r2 * r2 && x * x + y * y >= r1)
+            if (x * x + y * y <= r2 * r2 && x * x + y * y >= r1*r1)
             {
                 answer++;
             }
@@ -300,7 +300,7 @@ public class Program
         for(int i = 1; i <= n; i++)
         {
             double val = double.Parse(Console.ReadLine());
-            if(val >= norm)
+            if(val <= norm)
             {
                 answer++;
             }
@@ -320,7 +320,7 @@ public class Program
         {
             double x = double.Parse(Console.ReadLine());
             double y = double.Parse(Console.ReadLine());
-            if(y>=0 && y <= Math.Sin(x))
+            if(y>=0 && y <= Math.Sin(x) && x>=0 && x<=Math.PI)
             {
                 answer += 1;
             }
@@ -391,12 +391,15 @@ public class Program
     }
     public double Task_2_9(int n)
     {
-        double answer = double.MinValue;
+        double answer = double.MaxValue;
         // code here
         for(int i = 1; i <= n; i++)
         {
             double val = double.Parse(Console.ReadLine());
-            answer = Math.Max(val,answer);
+            if(answer > val)
+            {
+                answer = val;
+            }
         }
         Console.WriteLine(answer);
         // end
@@ -459,47 +462,61 @@ public class Program
     public double Task_2_12(double r, int type)
     {
         double answer = 0;
-
+        if (r < 0)
+        {
+            return 0;
+        }
         // code here;
         switch (type)
         {
-            case 1:
+            case 0:
                 answer = r * r;
                 break;
-            case 2:
+            case 1:
                 answer = Math.PI * r * r;
                 break;
-            case 3:
-                answer = Math.Sqrt(r * r * 3) / 4;
+            case 2:
+                answer = Math.Sqrt(3)*r*r / 4;
                 break;
         }
         // end
-
+        answer = Math.Round(answer, 2);
         return answer;
     }
     public double Task_2_13(double A, double B, int type)
     {
         double answer = 0;
-
+        if(A<=0 || B <=0)
+        {
+            return 0;
+        }
         // code here;
         switch (type)
         {
-            case 1:
+            case 0:
                 answer = A*B;
                 break;
-            case 2:
+            case 1:
                 if (B > A)
                 {
                     (A, B) = (B, A);
+
                 }
                 answer = Math.PI * A * A - Math.PI * B * B;
                 break;
-            case 3:
-                answer = Math.Sqrt(B * B - (A / 2) * (A / 2)) * A / 2;
+            case 2:
+                if (B * B - (A / 2) * (A / 2) > 0)
+                {
+                    answer = Math.Sqrt(B * B - (A / 2) * (A / 2)) * A / 2;
+                }
+                else
+                {
+                    answer = 0;
+                }
                 break;
         }
         // end
-
+        answer = Math.Round(answer, 2);
         return answer;
     }
     #endregion
@@ -596,7 +613,7 @@ public class Program
             }
             double x = double.Parse(s1);
             double y = double.Parse(s2);
-            if (y >= 0 && y <= Math.Sin(x))
+            if (y >= 0 && y <= Math.Sin(x) && x>=0 && x<=Math.PI)
             {
                 answer += 1;
             }
@@ -636,7 +653,7 @@ public class Program
     }
     public double Task_3_9()
     {
-        double answer = double.MinValue;
+        double answer = double.MaxValue;
         // code here
         while(true)
         {
@@ -645,7 +662,10 @@ public class Program
                 {
                     break;
                 }
-            answer = Math.Max(val, answer);
+            if(answer > val)
+            {
+                answer = val;
+            }
         }
         Console.WriteLine(answer);
         // end
